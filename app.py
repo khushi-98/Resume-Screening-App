@@ -114,9 +114,25 @@ st.markdown(background_style, unsafe_allow_html=True)
 nltk.download('punkt')
 nltk.download('stopwords')
 
-#loading models
-knn = pickle.load(open('knn.pkl','rb'))
-tfidfd = pickle.load(open('tfidf.pkl','rb'))
+# #loading models
+# knn = pickle.load(open('knn.pkl','rb'))
+# tfidfd = pickle.load(open('tfidf.pkl','rb'))
+###########################################
+
+# Path to the ZIP file
+zip_file_path = 'models.zip'
+
+# Names of the files within the ZIP archive
+knn_filename = 'knn.pkl'
+tfidf_filename = 'tfidf.pkl'
+
+with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+    with zip_ref.open(knn_filename) as knn_file:
+        knn = pickle.load(knn_file)
+    with zip_ref.open(tfidf_filename) as tfidf_file:
+        tfidfd = pickle.load(tfidf_file)
+
+
 
 def clean_resume(resume_text):
     clean_text = re.sub('http\S+\s*', ' ', resume_text)
